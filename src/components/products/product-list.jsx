@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import { getProducts, setScrollValue } from "../../store/actions/product-actions";
 import styles from './product.module.scss';
 
-let scrollVal = 0;
-
 class ProductList extends React.Component {
     componentDidMount() {
         if (this.props.list.length === 0) {
