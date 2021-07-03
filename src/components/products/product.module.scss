@@ -49,8 +49,8 @@
           justify-content: center;
           background-color: #f8ecd2;
           border-radius: 50%;
-          width: max(calc(var(--font-size) + 10px), 2vw);
-          height: max(calc(var(--font-size) + 10px), 2vw);
+          width: Max(calc(var(--font-size) + 10px), 2vw);
+          height: Max(calc(var(--font-size) + 10px), 2vw);
           margin: 2%;
         }
       }

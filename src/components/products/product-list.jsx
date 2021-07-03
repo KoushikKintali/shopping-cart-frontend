@@ -5,6 +5,15 @@ import { getProducts, setScrollValue } from "../../store/actions/product-actions
 import styles from './product.module.scss';
 
 class ProductList extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            products: [],
+            searchString : ''
+        }
+    }
+
     componentDidMount() {
         if (this.props.list.length === 0) {
             this.props.getProducts(0);
@@ -27,15 +36,35 @@ class ProductList extends React.Component {
             this.props.getProducts(this.props.list.length);
         }
     }
+
+    handleInput = (ev) => {
+        const searchString = ev.target.value;
+        this.debounce(searchString, 1000)
+    }
+
+    debounce = (str, delay) => {
+        const self = this;
+        let timer;
+        clearTimeout(timer);
+        timer = setTimeout(()=>{
+            self.setState({
+                searchString: str
+            })
+        }, delay)
+    }
+
     render() {
         return (
             <>
+                <div>
+                    <input onChange={this.handleInput}></input>
+                </div>
                 <div id="product-container" className={styles.productListContainer} onScroll={this.handleScroll}>
-                    {this.props.list.map((product, index) => {
-                        return (
+                {this.props.list.filter((product) => product.productName.toLowerCase().includes(this.state.searchString.trim().toLowerCase())).map((product, index)=>{
+                    return (
                             <ProductItem key={index} product={product}></ProductItem>
                         )
-                    })}
+                })} 
                 </div>
                 {
                     this.props.loading && <div className="loader">Loading...</div>
